@@ -1,0 +1,127 @@
+#include "main.h"
+
+#ifndef __FMCREG_H__
+#define __FMCREG_H__
+
+/* Basic
+ * 其中 Unit Type、Unit Number、Arm1/Arm2 Version 这类信息通常由 ARM 本地维护；
+ * 它们可能不需要通过 FMC 与 FPGA 通信。
+ * 这里保留地址宏，方便后续如果需要统一索引或回填默认信息时继续使用。
+ */
+#define FMC_UNIT_TYPE_REG0 0x00
+#define FMC_UNIT_TYPE_REG1 0x01
+#define FMC_UNIT_TYPE_REG2 0x02
+#define FMC_UNIT_TYPE_REG3 0x03
+#define FMC_UNIT_TYPE_REG4 0x04
+#define FMC_UNIT_TYPE_REG5 0x05
+#define FMC_UNIT_TYPE_REG6 0x06
+#define FMC_UNIT_TYPE_REG7 0x07
+#define FMC_UNIT_TYPE_REG8 0x08
+#define FMC_UNIT_TYPE_REG9 0x09
+
+#define FMC_UNIT_NUMBER_REG0 0x0A
+#define FMC_UNIT_NUMBER_REG1 0x0B
+#define FMC_UNIT_NUMBER_REG2 0x0C
+#define FMC_UNIT_NUMBER_REG3 0x0D
+#define FMC_UNIT_NUMBER_REG4 0x0E
+
+#define FPGA1_VERSION_REG0 0x0F
+#define FPGA1_VERSION_REG1 0x10
+#define FPGA1_VERSION_REG2 0x11
+#define FPGA1_VERSION_REG3 0x12
+#define FPGA1_VERSION_REG4 0x13
+
+#define FPGA2_VERSION_REG0 0x14
+#define FPGA2_VERSION_REG1 0x15
+#define FPGA2_VERSION_REG2 0x16
+#define FPGA2_VERSION_REG3 0x17
+#define FPGA2_VERSION_REG4 0x18
+
+#define FMC_ARM1_VERSION_REG0 0x19
+#define FMC_ARM1_VERSION_REG1 0x1A
+#define FMC_ARM1_VERSION_REG2 0x1B
+#define FMC_ARM1_VERSION_REG3 0x1C
+#define FMC_ARM1_VERSION_REG4 0x1D
+
+#define FMC_ARM2_VERSION_REG0 0x1E
+#define FMC_ARM2_VERSION_REG1 0x1F
+#define FMC_ARM2_VERSION_REG2 0x20
+#define FMC_ARM2_VERSION_REG3 0x21
+#define FMC_ARM2_VERSION_REG4 0x22
+
+#define FMC_UNIT_POWER_LIMIT_HI 0x23
+#define FMC_UNIT_POWER_LIMIT_LO 0x24
+#define FMC_UNIT_VOLTAGE_LIMIT 0x25
+#define FMC_UNIT_CURRENT_LIMIT 0x26
+
+/* Power Control */
+#define MB_FPGA_OUTPUT_CTRL 0x40
+#define MB_FPGA_REGULATION_MODE 0x41
+#define MB_FPGA_SETPOINT_HI 0x42
+#define MB_FPGA_SETPOINT_LO 0x43
+#define MB_FPGA_CONTROL_MODE 0x44
+#define FPGA_INIT 0x45
+
+/* Extension Communication Card */
+#define FMC_COMM_WATCHDOG_TIMER 0x60
+
+/* User Limit */
+#define FMC_USER_POWER_LIMIT_HI 0x70
+#define FMC_USER_POWER_LIMIT_LO 0x71
+#define FMC_USER_VOLTAGE_LIMIT 0x72
+#define FMC_USER_CURRENT_LIMIT 0x73
+#define MB_FPGA_IGNITION_SWITCH 0x74
+#define MB_FPGA_IGNITION_SETPOINT 0x75
+#define MB_FPGA_RIPPLE_LEVEL 0x76
+
+/* Pulse */
+#define MB_FPGA_PULSE_ENABLE 0x90
+#define MB_FPGA_DC_POLARITY 0x91
+#define MB_FPGA_BOOST_VOLT_SETPOINT 0x92
+#define MB_FPGA_OUTPUT_DEADTIME_1 0x93
+#define MB_FPGA_OUTPUT_DEADTIME_2 0x94
+#define MB_FPGA_OUTPUT_FREQUENCY 0x95
+#define MB_FPGA_PULSE_DUTY_CYCLE 0x96
+
+/* Power Pulse */
+#define MB_FPGA_PWR_PULSE_ENABLE 0xB0
+#define MB_FPGA_PWR_PULSE_ON_TIME 0xB1
+#define MB_FPGA_PWR_PULSE_OFF_TIME 0xB2
+
+/* Ramp */
+#define MB_FPGA_RAMP_ENABLE 0xC0
+#define MB_FPGA_RAMP_STEP 0xC1
+#define MB_FPGA_RAMP_TIME_MS 0xC2
+
+/* ADC */
+#define ADC_CH0 0xD0
+#define ADC_CH1 0xD1
+#define ADC_CH2 0xD2
+#define ADC_CH3 0xD3
+#define ADC_CH4 0xD4
+#define ADC_CH5 0xD5
+#define ADC_CH6 0xD6
+#define ADC_CH7 0xD7
+#define ADC_CH8 0xD8
+#define ADC_CH9 0xD9
+#define ADC_CH10 0xDA
+#define ADC_CH11 0xDB
+#define ADC_CH12 0xDC
+#define ADC_CH13 0xDD
+#define ADC_CH14 0xDE
+#define ADC_CH15 0xDF
+
+#define FMC_REG_CACHE_SIZE 256U
+
+extern uint16_t REG_FMC[FMC_REG_CACHE_SIZE];
+extern uint16_t REG_FMC_UART1[FMC_REG_CACHE_SIZE];
+
+#define FPGA_BASE_ADDR      ((uint32_t)0x60000000U)
+#define FPGA_ADDR_SHIFT     (17U)
+
+#define FMC_WRITE(FPGA_CONTROL, FMCDATA) \
+    *(volatile uint16_t *)(FPGA_BASE_ADDR + ((uint32_t)(FPGA_CONTROL) << FPGA_ADDR_SHIFT)) = (uint16_t)(FMCDATA)
+#define FMC_READ(FPGA_CONTROL) \
+    *(volatile uint16_t *)(FPGA_BASE_ADDR + ((uint32_t)(FPGA_CONTROL) << FPGA_ADDR_SHIFT))
+
+#endif

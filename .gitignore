@@ -1,0 +1,68 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+*.swp
+*.swo
+*~
+
+# Python cache / virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# PyInstaller output
+build/
+dist/
+*.manifest
+*.spec.log
+
+# Keil MDK generated output
+*.axf
+*.bin
+*.build_log.htm
+*.crf
+*.d
+*.dep
+*.elf
+*.hex
+*.htm
+*.i
+*.iex
+*.lnp
+*.lst
+*.map
+*.o
+*.obj
+*.pbi
+*.pbd
+*.scvd
+*.tra
+*.uvguix.*
+*.uvgui.*
+*.uvgui
+*.Bak
+
+# STM32Cube / build system temporary files
+Debug/
+Release/
+EWARM/
+STM32CubeIDE/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
