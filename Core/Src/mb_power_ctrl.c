@@ -537,7 +537,7 @@ uint8_t MB_Power_PreWrite(uint16_t start, const uint16_t *values, uint16_t count
     return 0U;
 }
 
-/* 提交已经通过校验的写请求。
+/* 提交已经通过校验的写请求并响应相应操作。
  * 提交流程：更新 Modbus 本地缓存，执行电源 GPIO 副作用，再把可映射寄存器写入 FPGA。 */
 void MB_Power_CommitWrite(uint16_t start, const uint16_t *values, uint16_t count)
 {

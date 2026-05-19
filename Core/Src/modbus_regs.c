@@ -176,7 +176,7 @@ const ModbusRegBlock_t Modbus_RegBlocks[] =
     { REG_OUTPUT_DEADTIME_1,           1,  0,      0xFFFF, 0,      1 },
     { REG_OUTPUT_DEADTIME_2,           1,  0,      0xFFFF, 0,      1 },
     { REG_OUTPUT_FREQUENCY,            1,  0,      0xFFFF, 0,      1 },
-    { REG_PULSE_DUTY_CYCLE,            1,  0,      100,    50,     1 }, /* 占空比 0-100 %               */
+    { REG_PULSE_DUTY_CYCLE,            1,  0,      1000,   500,    1 }, /* 占空比 0-100 %，倍率是0.1%              */
     { REG_PULSE_RESERVED,             10,  0,      0xFFFF, 0,      1 }, /* 预留 20B                     */
 
     /* ============================================================================
